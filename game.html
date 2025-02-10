@@ -21,18 +21,19 @@
             <button class="color-button green" id="green_button"></button>
             <button class="color-button blue" id="blue_button"></button>
             <button class="color-button yellow" id="yellow_button"></button>
+            <div class="circle"></div>
+            <div class="score_count" id="score">0</div>
         </div>
         <button class="main-button" id="startGameButton" style="margin-top: 20px; ">Iniciar Juego</button>
         <button class="main-button" id="resetGameButton" style="margin-top: 20px; margin-left: 10px;">Reiniciar</button>
     </section>
-    <div id="score">Puntos: 0</div>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             const playerName = localStorage.getItem('playerName');
             document.getElementById('playerNameDisplay').textContent = `Jugador: ${playerName}`;
         });
 
-        document.getElementById('resetGameButton').onclick = function() {
+        document.getElementById('resetGameButton').onclick = function () {
             window.location.href = 'index.html';
         };
     </script>

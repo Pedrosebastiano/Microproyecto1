@@ -32,15 +32,10 @@
             <button class="color-button green" id="green_button"></button>
             <button class="color-button blue" id="blue_button"></button>
             <button class="color-button yellow" id="yellow_button"></button>
-            <div class="circle"></div>
         </div>
     </section>
-    <section id="section-3">
-        <p class="score">Puntaje: 0</p>
-        <button class="main-button">Reiniciar</button>
-    </section>
     <script>
-        document.getElementById('startGameLink').onclick = function(event) {
+        document.getElementById('startGameLink').onclick = function (event) {
             const playerName = document.getElementById('player_name').value;
             localStorage.setItem('playerName', playerName);
             // esto no deberia ir aca creo, pero lo estsba probando

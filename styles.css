@@ -3,7 +3,8 @@
 body {
   font-family: Helvetica, "Inter", "Arial", sans-serif;
   text-align: center;
-  background-color: whitesmoke;
+  background-color: rgb(61, 58, 58);
+  color: whitesmoke;
 }
 
 #logo {
@@ -60,9 +61,16 @@ input {
   width: 100px;
   height: 100px;
   position: absolute;
-  top: 55px;
-  left: 55px;
+  align-items: center;
   border-radius: 100%;
+}
+
+#score {
+  position: absolute;
+  align-items: center;
+  color: black;
+  font-size: 50px;
+  font-weight: bold;
 }
 
 .color-button {
@@ -107,23 +115,22 @@ input {
   box-shadow: 0 0 20px 5px red;
 }
 
-.red_button.active, .red_button.active-click {
+.red_button.active,
+.red_button.active-click {
   box-shadow: 0 0 20px 5px red;
 }
 
-.green_button.active, .green_button.active-click {
+.green_button.active,
+.green_button.active-click {
   box-shadow: 0 0 20px 5px green;
 }
 
-.blue_button.active, .blue_button.active-click {
+.blue_button.active,
+.blue_button.active-click {
   box-shadow: 0 0 20px 5px blue;
 }
 
-.yellow_button.active, .yellow_button.active-click {
+.yellow_button.active,
+.yellow_button.active-click {
   box-shadow: 0 0 20px 5px yellow;
-}
-
-#score {
-  margin-top: 20px;
-  font-size: 20px;
 }
