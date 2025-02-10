@@ -20,6 +20,7 @@ body {
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
+  margin: 10px;
   text-decoration: none;
   display: inline-block;
 }
@@ -63,6 +64,7 @@ input {
   position: absolute;
   align-items: center;
   border-radius: 100%;
+  z-index: 1;
 }
 
 #score {
@@ -71,6 +73,7 @@ input {
   color: black;
   font-size: 50px;
   font-weight: bold;
+  z-index: 1;
 }
 
 .color-button {
@@ -118,19 +121,23 @@ input {
 .red_button.active,
 .red_button.active-click {
   box-shadow: 0 0 20px 5px red;
+  z-index: -1;
 }
 
 .green_button.active,
 .green_button.active-click {
   box-shadow: 0 0 20px 5px green;
+  z-index: -1;
 }
 
 .blue_button.active,
 .blue_button.active-click {
   box-shadow: 0 0 20px 5px blue;
+  z-index: -1;
 }
 
 .yellow_button.active,
 .yellow_button.active-click {
   box-shadow: 0 0 20px 5px yellow;
+  z-index: -1;
 }
