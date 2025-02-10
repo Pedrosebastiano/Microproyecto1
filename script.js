@@ -40,7 +40,6 @@ function botonIluminado(buttonId) {
 
 function botonIluminadoCLick(buttonId) {
   const button = document.getElementById(buttonId);
-  console.log("Boton iluminado al hacer clic:", buttonId);
   button.classList.add("active-click", buttonId);
   setTimeout(() => {
     button.classList.remove("active-click", buttonId);
