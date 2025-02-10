@@ -19,6 +19,8 @@ body {
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 }
 
 button:hover {
@@ -42,6 +44,15 @@ input {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   margin: 40px;
+}
+
+.button-game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .circle {
@@ -82,4 +93,37 @@ input {
   background-color: #ffee80;
   border-bottom-right-radius: 100%;
   margin: 3px;
+}
+
+.highlight {
+  box-shadow: 0 0 20px 5px yellow;
+}
+
+.active {
+  box-shadow: 0 0 20px 5px yellow;
+}
+
+.active-click {
+  box-shadow: 0 0 20px 5px red;
+}
+
+.red_button.active, .red_button.active-click {
+  box-shadow: 0 0 20px 5px red;
+}
+
+.green_button.active, .green_button.active-click {
+  box-shadow: 0 0 20px 5px green;
+}
+
+.blue_button.active, .blue_button.active-click {
+  box-shadow: 0 0 20px 5px blue;
+}
+
+.yellow_button.active, .yellow_button.active-click {
+  box-shadow: 0 0 20px 5px yellow;
+}
+
+#score {
+  margin-top: 20px;
+  font-size: 20px;
 }

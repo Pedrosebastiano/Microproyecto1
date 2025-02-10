@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Says!</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <section class="header">
+        <div>
+            <img src="./LogoSimonSays.png" alt="Logo Simon Says!" id="logo">
+        </div>
+    </section>
+    <section id="section-1">
+        <h2 id="playerNameDisplay"></h2>
+        <div class="button-game-container">
+            <button class="color-button red" id="red_button"></button>
+            <button class="color-button green" id="green_button"></button>
+            <button class="color-button blue" id="blue_button"></button>
+            <button class="color-button yellow" id="yellow_button"></button>
+        </div>
+        <button class="main-button" id="startGameButton" style="margin-top: 20px; ">Iniciar Juego</button>
+        <button class="main-button" id="resetGameButton" style="margin-top: 20px; margin-left: 10px;">Reiniciar</button>
+    </section>
+    <div id="score">Puntos: 0</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const playerName = localStorage.getItem('playerName');
+            document.getElementById('playerNameDisplay').textContent = `Jugador: ${playerName}`;
+        });
+
+        document.getElementById('resetGameButton').onclick = function() {
+            window.location.href = 'index.html';
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
