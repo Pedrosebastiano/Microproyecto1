@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+  font-family: Helvetica, "Inter", "Arial", sans-serif;
+  text-align: center;
+  background-color: whitesmoke;
+}
+
+#logo {
+  width: 200px;
+  margin: 10px;
+}
+
+.main-button {
+  background-color: #ff5757;
+  color: white;
+  font-weight: bold;
+  border: #ff5757;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #b71f1f;
+  color: white;
+}
+
+input {
+  background-color: whitesmoke;
+  width: 300px;
+  padding: 8px;
+  border-radius: 10px;
+  border-color: #ff5757;
+}
+
+.button-container {
+  position: relative;
+  width: 20px;
+  height: 200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  margin: 40px;
+}
+
+.circle {
+  background-color: whitesmoke;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 55px;
+  left: 55px;
+  border-radius: 100%;
+}
+
+.color-button {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#red_button {
+  background-color: #ff5757;
+  border-top-left-radius: 100%;
+  margin: 3px;
+}
+#green_button {
+  background-color: #90cb71;
+  border-top-right-radius: 100%;
+  margin: 3px;
+}
+#blue_button {
+  background-color: #385ad4;
+  border-bottom-left-radius: 100%;
+  margin: 3px;
+}
+#yellow_button {
+  background-color: #ffee80;
+  border-bottom-right-radius: 100%;
+  margin: 3px;
+}

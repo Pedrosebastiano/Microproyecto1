@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Says!</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <section class="header">
+        <div>
+            <img src="./LogoSimonSays.png" alt="Logo Simon Says!" id="logo">
+        </div>
+    </section>
+    <section class="section-1">
+        <div>
+            <h2>Jugador🫂</h2>
+        </div>
+        <form>
+            <div id="input_name">
+                <p>Ingrese el nombre del jugador</p>
+                <input type="text" id="player_name">
+                <button class="main-button">Iniciar Juego</button>
+            </div>
+        </form>
+    </section>
+    <section id="section-2">
+        <div class="button-container">
+            <button class="color-button red" id="red_button"></button>
+            <button class="color-button green" id="green_button"></button>
+            <button class="color-button blue" id="blue_button"></button>
+            <button class="color-button yellow" id="yellow_button"></button>
+            <div class="circle"></div>
+        </div>
+    </section>
+    <section id="section-3">
+        <p class="score">Puntaje: 0</p>
+        <button class="main-button">Reiniciar</button>
+    </section>
+    <script src="script.js"></script>
+</body>
+
+</html>
