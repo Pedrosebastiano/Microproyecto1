@@ -5,6 +5,7 @@ let userSequence = [];
 let currentStep = 0;
 let score = 0;
 let level = 0;
+let isSequencePlaying = false;  
 
 function startGame() {
   console.log("Juego iniciado");
@@ -18,16 +19,6 @@ function startGame() {
   updateScore();
   nuevoBotonSequencia();
   playSequence();
-}
-
-function validatePlayerName() {
-  const playerName = localStorage.getItem("playerName");
-
-  if (!playerName || playerName.trim() === "") {
-    alert("Por favor, ingresa tu nombre antes de comenzar.");
-    return false;
-  }
-  return true;
 }
 
 function getRandomButton() {
@@ -60,6 +51,7 @@ function botonIluminadoCLick(buttonId) {
 }
 
 function playSequence() {
+  isSequencePlaying = true;  
   let delay = 0;
   sequence.forEach((buttonId, index) => {
     setTimeout(() => {
@@ -68,6 +60,9 @@ function playSequence() {
     delay += 1000;
     delay += 250;
   });
+  setTimeout(() => {
+    isSequencePlaying = false;  
+  }, delay);
 }
 
 function nuevoBotonSequencia() {
@@ -77,7 +72,7 @@ function nuevoBotonSequencia() {
 }
 
 function checkButton(event) {
-  if (!isPlaying) return;
+  if (!isPlaying || isSequencePlaying) return; 
   const clickedButton = event.target.id;
   botonIluminadoCLick(clickedButton);
   userSequence.push(clickedButton);
@@ -100,7 +95,7 @@ function checkButton(event) {
     nuevoBotonSequencia();
     setTimeout(playSequence, 1000);
     score = 0;
-    updateScore;
+    updateScore();
   }
 }
 
@@ -119,8 +114,3 @@ document.getElementById("startGameButton").onclick = startGame;
 document.querySelectorAll(".color-button").forEach((button) => {
   button.addEventListener("click", checkButton);
 });
-
-document.getElementById("startGameLink").onclick = function (event) {
-  const playerName = document.getElementById("player_name").value;
-  localStorage.setItem("playerName", playerName);
-};
