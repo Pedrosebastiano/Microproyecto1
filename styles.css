@@ -16,18 +16,22 @@ body {
   font-weight: bold;
   border: #ff5757;
   border-radius: 5px;
-  padding: 10px;
   cursor: pointer;
-  margin: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 5px 0; 
   text-decoration: none;
 }
 
 .action-button {
   display: flex;
-  justify-self: center;
   flex-direction: column;
-  margin-top: 10px;
-  width: 10rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 button:hover {
@@ -42,6 +46,16 @@ input {
   padding: 8px;
   border: 0px;
   border-bottom: solid 1px #ff5757;
+}
+
+#input_name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; 
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
 }
 
 .button-game-container {
