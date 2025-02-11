@@ -19,7 +19,7 @@
     </section>
     <section class="section-1">
         <div>
-            <h2>Jugador</h2>
+            <h2>Jugador🫂</h2>
         </div>
         <form>
             <p>Ingrese el nombre del jugador</p>
@@ -30,10 +30,9 @@
         </form>
     </section>
     <script>
-        document.getElementById('startGameLink').onclick = function (event) {
-            const playerName = document.getElementById('player_name').value;
-            localStorage.setItem('playerName', playerName);
-            // esto no deberia ir aca creo, pero lo estsba probando
+        document.getElementById("startGameLink").onclick = function (event) {
+            const playerName = document.getElementById("player_name").value;
+            localStorage.setItem("playerName", playerName);
         };
     </script>
     <script src="script.js"></script>

@@ -4,6 +4,7 @@ let sequence = [];
 let userSequence = [];
 let currentStep = 0;
 let score = 0;
+let level = 0;
 
 function startGame() {
   console.log("Juego iniciado");
@@ -12,9 +13,21 @@ function startGame() {
   userSequence = [];
   currentStep = 0;
   score = 0;
+  level = 1;
+  updateActualScore();
   updateScore();
   nuevoBotonSequencia();
   playSequence();
+}
+
+function validatePlayerName() {
+  const playerName = localStorage.getItem("playerName");
+
+  if (!playerName || playerName.trim() === "") {
+    alert("Por favor, ingresa tu nombre antes de comenzar.");
+    return false;
+  }
+  return true;
 }
 
 function getRandomButton() {
@@ -66,7 +79,6 @@ function nuevoBotonSequencia() {
 function checkButton(event) {
   if (!isPlaying) return;
   const clickedButton = event.target.id;
-  console.log("Botón presionado:", clickedButton);
   botonIluminadoCLick(clickedButton);
   userSequence.push(clickedButton);
 
@@ -77,19 +89,29 @@ function checkButton(event) {
     return;
   }
 
+  score++;
+  updateActualScore();
+
   if (userSequence.length === sequence.length) {
     console.log("Correcto");
     userSequence = [];
-    score++;
+    level++;
     updateScore();
     nuevoBotonSequencia();
     setTimeout(playSequence, 1000);
+    score = 0;
+    updateScore;
   }
 }
 
 function updateScore() {
-  const scoreElement = document.getElementById("score");
-  scoreElement.textContent = `${score}`;
+  const levelElement = document.getElementById("level");
+  levelElement.textContent = `${level}`;
+}
+
+function updateActualScore() {
+  const actualScoreElement = document.getElementById("actual-score");
+  actualScoreElement.textContent = `Puntuación actual⭐: ${score}`;
 }
 
 document.getElementById("startGameButton").onclick = startGame;
@@ -97,3 +119,8 @@ document.getElementById("startGameButton").onclick = startGame;
 document.querySelectorAll(".color-button").forEach((button) => {
   button.addEventListener("click", checkButton);
 });
+
+document.getElementById("startGameLink").onclick = function (event) {
+  const playerName = document.getElementById("player_name").value;
+  localStorage.setItem("playerName", playerName);
+};
