@@ -5,7 +5,8 @@ let userSequence = [];
 let currentStep = 0;
 let score = 0;
 let level = 0;
-let isSequencePlaying = false;  
+let playerName = null;
+let isSequencePlaying = false;
 
 function startGame() {
   console.log("Juego iniciado");
@@ -37,6 +38,22 @@ function botonIluminado(buttonId) {
   const button = document.getElementById(buttonId);
   console.log("Boton iluminado:", buttonId);
   button.classList.add("active", buttonId);
+
+  switch (buttonId) {
+    case "red_button":
+      playRedSound();
+      break;
+    case "green_button":
+      playGreenSound();
+      break;
+    case "blue_button":
+      playBlueSound();
+      break;
+    case "yellow_button":
+      playYellowSound();
+      break;
+  }
+
   setTimeout(() => {
     button.classList.remove("active", buttonId);
   }, 1000);
@@ -45,13 +62,29 @@ function botonIluminado(buttonId) {
 function botonIluminadoCLick(buttonId) {
   const button = document.getElementById(buttonId);
   button.classList.add("active-click", buttonId);
+
+  switch (buttonId) {
+    case "red_button":
+      playRedSound();
+      break;
+    case "green_button":
+      playGreenSound();
+      break;
+    case "blue_button":
+      playBlueSound();
+      break;
+    case "yellow_button":
+      playYellowSound();
+      break;
+  }
+
   setTimeout(() => {
     button.classList.remove("active-click", buttonId);
   }, 150);
 }
 
 function playSequence() {
-  isSequencePlaying = true;  
+  isSequencePlaying = true;
   let delay = 0;
   sequence.forEach((buttonId, index) => {
     setTimeout(() => {
@@ -61,7 +94,7 @@ function playSequence() {
     delay += 250;
   });
   setTimeout(() => {
-    isSequencePlaying = false;  
+    isSequencePlaying = false;
   }, delay);
 }
 
@@ -72,7 +105,7 @@ function nuevoBotonSequencia() {
 }
 
 function checkButton(event) {
-  if (!isPlaying || isSequencePlaying) return; 
+  if (!isPlaying || isSequencePlaying) return;
   const clickedButton = event.target.id;
   botonIluminadoCLick(clickedButton);
   userSequence.push(clickedButton);
@@ -114,3 +147,45 @@ document.getElementById("startGameButton").onclick = startGame;
 document.querySelectorAll(".color-button").forEach((button) => {
   button.addEventListener("click", checkButton);
 });
+
+document.getElementById("startGameLink").onclick = function (event) {
+  const playerName = document.getElementById("player_name").value;
+  localStorage.setItem("playerName", playerName);
+};
+
+document.getElementById("red_button").addEventListener("click", playRedSound);
+document
+  .getElementById("green_button")
+  .addEventListener("click", playGreenSound);
+document.getElementById("blue_button").addEventListener("click", playBlueSound);
+document
+  .getElementById("yellow_button")
+  .addEventListener("click", playYellowSound);
+
+function playRedSound() {
+  const redSound = new Audio("botonrojo.mp3");
+  redSound.play();
+}
+
+function playGreenSound() {
+  const greenSound = new Audio("botonverde.mp3");
+  greenSound.play();
+}
+function playBlueSound() {
+  const blueSound = new Audio("botonazul.mp3");
+  blueSound.play();
+}
+
+function playYellowSound() {
+  const yellowSound = new Audio("botonamarillo.mp3");
+  yellowSound.play();
+}
+
+/*
+function getplayerName() {
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const playerName = localStorage.getItem('playerName');
+        document.getElementById('playerNameDisplay').textContent = `Jugador: ${playerName}`;
+    });
+}
+*/
