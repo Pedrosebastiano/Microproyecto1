@@ -33,6 +33,10 @@
         document.getElementById("startGameLink").onclick = function (event) {
             const playerName = document.getElementById("player_name").value;
             localStorage.setItem("playerName", playerName);
+            if (playerName == "") {
+                alert("Por favor, ingrese un nombre");
+                event.preventDefault();
+            }
         };
     </script>
     <script src="script.js"></script>

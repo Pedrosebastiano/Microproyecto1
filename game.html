@@ -28,8 +28,9 @@
             <div class="score_count" id="level">0</div>
         </div>
         <div class="action-button">
-            <button class="main-button" id="startGameButton">Iniciar Juego</button>
-            <button class="main-button" id="resetGameButton">Reiniciar</button>
+            <a class="main-button" id="startGameButton">Iniciar Juego</a>
+            <a class="main-button" href="index.html" id="resetGameButton">Reiniciar</a>
+            <a class="main-button" id="showHighScoresButton">Ver Puntajes</a>
         </div>
     </section>
     <script>
@@ -37,10 +38,6 @@
             const playerName = localStorage.getItem('playerName');
             document.getElementById('playerNameDisplay').textContent = `Jugador: ${playerName}`;
         });
-
-        document.getElementById('resetGameButton').onclick = function () {
-            window.location.href = 'index.html';
-        };
     </script>
     <script src="script.js"></script>
 </body>

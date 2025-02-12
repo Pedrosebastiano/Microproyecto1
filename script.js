@@ -5,8 +5,8 @@ let userSequence = [];
 let currentStep = 0;
 let score = 0;
 let level = 0;
-let playerName = null;
 let isSequencePlaying = false;
+const playerName = localStorage.getItem('playerName');
 
 function startGame() {
   console.log("Juego iniciado");
@@ -32,6 +32,16 @@ function getRandomButton() {
   const randomIndex = Math.floor(Math.random() * buttons.length);
   console.log("Botón aleatorio seleccionado:", buttons[randomIndex]);
   return buttons[randomIndex];
+}
+
+function validatePlayerName() {
+  const playerName = localStorage.getItem("playerName");
+
+  if (!playerName || playerName.trim() === "") {
+    alert("Por favor, ingresa tu nombre antes de comenzar.");
+    return false;
+  }
+  return true;
 }
 
 function botonIluminado(buttonId) {
@@ -114,6 +124,7 @@ function checkButton(event) {
     console.log("Incorrecto");
     alert("Perdiste");
     isPlaying = false;
+    localStorage.setItem(`${playerName}_score`, score);
     return;
   }
 
@@ -148,44 +159,46 @@ document.querySelectorAll(".color-button").forEach((button) => {
   button.addEventListener("click", checkButton);
 });
 
-document.getElementById("startGameLink").onclick = function (event) {
-  const playerName = document.getElementById("player_name").value;
-  localStorage.setItem("playerName", playerName);
-};
-
-document.getElementById("red_button").addEventListener("click", playRedSound);
-document
-  .getElementById("green_button")
-  .addEventListener("click", playGreenSound);
-document.getElementById("blue_button").addEventListener("click", playBlueSound);
-document
-  .getElementById("yellow_button")
-  .addEventListener("click", playYellowSound);
+document.getElementById('red_button').addEventListener('click', playRedSound);
+document.getElementById('green_button').addEventListener('click', playGreenSound);
+document.getElementById('blue_button').addEventListener('click', playBlueSound);
+document.getElementById('yellow_button').addEventListener('click', playYellowSound);
 
 function playRedSound() {
-  const redSound = new Audio("botonrojo.mp3");
-  redSound.play();
+    const redSound = new Audio('botonrojo.mp3');
+    redSound.play();
 }
 
 function playGreenSound() {
-  const greenSound = new Audio("botonverde.mp3");
-  greenSound.play();
+    const greenSound = new Audio('botonverde.mp3');
+    greenSound.play();
 }
 function playBlueSound() {
-  const blueSound = new Audio("botonazul.mp3");
-  blueSound.play();
+    const blueSound = new Audio('botonazul.mp3');
+    blueSound.play();
 }
 
 function playYellowSound() {
-  const yellowSound = new Audio("botonamarillo.mp3");
-  yellowSound.play();
+    const yellowSound = new Audio('botonamarillo.mp3');
+    yellowSound.play();
 }
 
-/*
-function getplayerName() {
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const playerName = localStorage.getItem('playerName');
-        document.getElementById('playerNameDisplay').textContent = `Jugador: ${playerName}`;
-    });
+function showHighScores() {
+  const scores = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key.includes("_score")) {
+      const playerName = key.replace("_score", "");
+      const score = parseInt(localStorage.getItem(key));
+      scores[playerName] = score;
+    }
+  }
+
+  const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+
+  const highScoresList = sortedScores.map((entry) => `${entry[0]}: ${entry[1]}`).join("");
+  alert(`High Scores:\n${highScoresList}`);
 }
-*/
+
+document.getElementById("showHighScoresButton").onclick = showHighScores;
+document.getElementById('playerNameDisplay').textContent = `Jugador: ${playerName}`;
