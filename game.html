@@ -6,16 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simon Says!</title>
     <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="./Recursos/faviconLogo.png" type="image/png">
 </head>
 
 <body>
     <section class="header">
         <div>
-            <img src="./LogoSimonSays.png" alt="Logo Simon Says!" id="logo">
+            <img src="./Recursos/LogoSimonSays.png" alt="Logo Simon Says!" id="logo">
         </div>
     </section>
     <section id="section-1">
-        <div class="playr-info">
+        <div class="player-info">
             <h2 id="playerNameDisplay"></h2>
             <h4 id="actual-score">Puntuación actual⭐: 0</h4>
         </div>
@@ -28,17 +29,11 @@
             <div class="score_count" id="level">0</div>
         </div>
         <div class="action-button">
-            <a class="main-button" id="startGameButton">Iniciar Juego</a>
-            <a class="main-button" href="index.html" id="resetGameButton">Reiniciar</a>
-            <a class="main-button" id="showHighScoresButton">Ver Puntajes</a>
+            <button class="main-button" onclick="startGame()">Iniciar Juego</button>
+            <button class="main-button" onclick="restartValues(0)">Reniciar</button>
+            <button class="main-button" onclick="backMainMenu()">Volver al Menu Principal</button>
         </div>
     </section>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const playerName = localStorage.getItem('playerName');
-            document.getElementById('playerNameDisplay').textContent = `Jugador: ${playerName}`;
-        });
-    </script>
     <script src="script.js"></script>
 </body>
 

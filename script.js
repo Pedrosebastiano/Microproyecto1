@@ -1,24 +1,52 @@
 let isPlaying = false;
-let currentButton = null;
 let sequence = [];
 let userSequence = [];
 let currentStep = 0;
 let score = 0;
 let level = 0;
 let isSequencePlaying = false;
-const playerName = localStorage.getItem('playerName');
 
-function startGame() {
-  console.log("Juego iniciado");
-  isPlaying = true;
+//ver si usar
+class Player {
+  constructor(name) {
+    this.name = name;
+    this.score = 0;
+  }
+}
+
+//revisado
+function prepareGame() {
+  let playerName = document.getElementById("player_name").value.trim();
+
+  if (playerName.length > 0) {
+    window.location.href = "game.html";
+    localStorage.setItem("playerName", playerName);
+  } else {
+    alert("Por favor, ingrese un nombre");
+  }
+}
+
+//revisado
+function backMainMenu() {
+  saveData();
+  window.location.href = "index.html";
+}
+
+function restartValues(num) {
   sequence = [];
   userSequence = [];
   currentStep = 0;
   score = 0;
-  level = 1;
+  level = num;
   updateActualScore();
-  updateScore();
-  nuevoBotonSequencia();
+  updateLevel();
+}
+
+//revisado
+function startGame() {
+  isPlaying = true;
+  restartValues(1);
+  newButtonSecuence();
   playSequence();
 }
 
@@ -30,23 +58,11 @@ function getRandomButton() {
     "yellow_button",
   ];
   const randomIndex = Math.floor(Math.random() * buttons.length);
-  console.log("Botón aleatorio seleccionado:", buttons[randomIndex]);
   return buttons[randomIndex];
 }
 
-function validatePlayerName() {
-  const playerName = localStorage.getItem("playerName");
-
-  if (!playerName || playerName.trim() === "") {
-    alert("Por favor, ingresa tu nombre antes de comenzar.");
-    return false;
-  }
-  return true;
-}
-
-function botonIluminado(buttonId) {
+function iluminatebutton(buttonId) {
   const button = document.getElementById(buttonId);
-  console.log("Boton iluminado:", buttonId);
   button.classList.add("active", buttonId);
 
   switch (buttonId) {
@@ -69,7 +85,7 @@ function botonIluminado(buttonId) {
   }, 1000);
 }
 
-function botonIluminadoCLick(buttonId) {
+function clickIluminateButton(buttonId) {
   const button = document.getElementById(buttonId);
   button.classList.add("active-click", buttonId);
 
@@ -98,7 +114,7 @@ function playSequence() {
   let delay = 0;
   sequence.forEach((buttonId, index) => {
     setTimeout(() => {
-      botonIluminado(buttonId);
+      iluminatebutton(buttonId);
     }, delay);
     delay += 1000;
     delay += 250;
@@ -108,23 +124,21 @@ function playSequence() {
   }, delay);
 }
 
-function nuevoBotonSequencia() {
+function newButtonSecuence() {
   const newButton = getRandomButton();
   sequence.push(newButton);
-  console.log("Secuencia actual:", sequence);
 }
 
 function checkButton(event) {
   if (!isPlaying || isSequencePlaying) return;
   const clickedButton = event.target.id;
-  botonIluminadoCLick(clickedButton);
+  clickIluminateButton(clickedButton);
   userSequence.push(clickedButton);
 
   if (clickedButton !== sequence[userSequence.length - 1]) {
-    console.log("Incorrecto");
-    alert("Perdiste");
     isPlaying = false;
-    localStorage.setItem(`${playerName}_score`, score);
+    saveData();
+    lostGame();
     return;
   }
 
@@ -135,15 +149,40 @@ function checkButton(event) {
     console.log("Correcto");
     userSequence = [];
     level++;
-    updateScore();
-    nuevoBotonSequencia();
+    updateLevel();
+    newButtonSecuence();
     setTimeout(playSequence, 1000);
     score = 0;
-    updateScore();
+    updateLevel();
   }
 }
 
-function updateScore() {
+function saveData() {
+  if (level != 0) {
+    const previusPlayers = localStorage.getItem("scores");
+    let previusPlayersArray = [];
+
+    if (previusPlayers !== null) {
+      previusPlayersArray = JSON.parse(previusPlayers);
+    }
+
+    previusPlayersArray.push({
+      name: localStorage.getItem("playerName"), // Recuperar nombre guardado
+      count: level - 1,
+    });
+
+    localStorage.setItem("scores", JSON.stringify(previusPlayersArray));
+
+    alert(localStorage.getItem("scores"));
+  }
+}
+
+function lostGame() {
+  const actualScoreElement = document.getElementById("actual-score");
+  actualScoreElement.textContent = `Perdiste! \n Puntaje🚩: ${level - 1}`;
+}
+
+function updateLevel() {
   const levelElement = document.getElementById("level");
   levelElement.textContent = `${level}`;
 }
@@ -153,52 +192,31 @@ function updateActualScore() {
   actualScoreElement.textContent = `Puntuación actual⭐: ${score}`;
 }
 
-document.getElementById("startGameButton").onclick = startGame;
-
 document.querySelectorAll(".color-button").forEach((button) => {
   button.addEventListener("click", checkButton);
 });
 
-document.getElementById('red_button').addEventListener('click', playRedSound);
-document.getElementById('green_button').addEventListener('click', playGreenSound);
-document.getElementById('blue_button').addEventListener('click', playBlueSound);
-document.getElementById('yellow_button').addEventListener('click', playYellowSound);
+document.addEventListener("DOMContentLoaded", function () {
+  const playerName = localStorage.getItem("playerName");
+  const playerNameElement = document.getElementById("playerNameDisplay");
+  playerNameElement.textContent = `Jugador: ${playerName}`;
+});
 
 function playRedSound() {
-    const redSound = new Audio('botonrojo.mp3');
-    redSound.play();
+  const redSound = new Audio("./Recursos/botonrojo.mp3");
+  redSound.play();
 }
 
 function playGreenSound() {
-    const greenSound = new Audio('botonverde.mp3');
-    greenSound.play();
+  const greenSound = new Audio("./Recursos/botonverde.mp3");
+  greenSound.play();
 }
 function playBlueSound() {
-    const blueSound = new Audio('botonazul.mp3');
-    blueSound.play();
+  const blueSound = new Audio("./Recursos/botonazul.mp3");
+  blueSound.play();
 }
 
 function playYellowSound() {
-    const yellowSound = new Audio('botonamarillo.mp3');
-    yellowSound.play();
+  const yellowSound = new Audio("./Recursos/botonamarillo.mp3");
+  yellowSound.play();
 }
-
-function showHighScores() {
-  const scores = {};
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key.includes("_score")) {
-      const playerName = key.replace("_score", "");
-      const score = parseInt(localStorage.getItem(key));
-      scores[playerName] = score;
-    }
-  }
-
-  const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-
-  const highScoresList = sortedScores.map((entry) => `${entry[0]}: ${entry[1]}`).join("");
-  alert(`High Scores:\n${highScoresList}`);
-}
-
-document.getElementById("showHighScoresButton").onclick = showHighScores;
-document.getElementById('playerNameDisplay').textContent = `Jugador: ${playerName}`;

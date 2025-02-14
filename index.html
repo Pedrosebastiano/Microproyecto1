@@ -9,36 +9,97 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
     </style>
+    <link rel="icon" href="./Recursos/faviconLogo.png" type="image/png">
 </head>
 
 <body>
     <section class="header">
         <div>
-            <img src="./LogoSimonSays.png" alt="Logo Simon Says!" id="logo">
+            <img src="./Recursos/LogoSimonSays.png" alt="Logo Simon Says!" id="logo">
         </div>
     </section>
     <section class="section-1">
         <div>
             <h2>Jugador🫂</h2>
         </div>
-        <form>
+        <div>
             <p>Ingrese el nombre del jugador</p>
             <div id="input_name">
                 <input type="text" id="player_name" placeholder="Ingresa tu nombre">
-                <a class="main-button" href="game.html" id="startGameLink">Comenzar</a>
+                <button type="button" class="main-button" onclick="prepareGame()">Comenzar</button>
             </div>
-        </form>
+        </div>
     </section>
-    <script>
-        document.getElementById("startGameLink").onclick = function (event) {
-            const playerName = document.getElementById("player_name").value;
-            localStorage.setItem("playerName", playerName);
-            if (playerName == "") {
-                alert("Por favor, ingrese un nombre");
-                event.preventDefault();
-            }
-        };
-    </script>
+    <section class="tables">
+        <h2>Resultados📊</h2>
+        <div class="tables-container">
+            <!-- Tabla de Mejores Puntuaciones -->
+            <div class="tabular-wrapped">
+                <h3 class="table-title">Mejores Puntuaciones</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>🥇</th>
+                                <th>Nombre🙋‍♂️</th>
+                                <th>Puntaje🔥</th>
+                            </tr>
+                        </thead>
+                        <tbody id="best-scores">
+                            <tr>
+                                <td>1</td>
+                                <td>Pedro</td>
+                                <td>100</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Gabriele</td>
+                                <td>80</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Juan</td>
+                                <td>80</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabla de Últimas Partidas -->
+            <div class="tabular-wrapped">
+                <h3 class="table-title">Últimas Partidas</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>🥇</th>
+                                <th>Nombre🙋‍♂️</th>
+                                <th>Puntaje🔥</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-games">
+                            <tr>
+                                <td>1</td>
+                                <td>Gabriele</td>
+                                <td>80</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Juan</td>
+                                <td>80</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Maria</td>
+                                <td>80</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
     <script src="script.js"></script>
 </body>
 
