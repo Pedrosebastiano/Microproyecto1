@@ -14,7 +14,6 @@ class Player {
   }
 }
 
-//revisado
 function prepareGame() {
   let playerName = document.getElementById("player_name").value.trim();
 
@@ -26,7 +25,6 @@ function prepareGame() {
   }
 }
 
-//revisado
 function backMainMenu() {
   saveData();
   window.location.href = "index.html";
@@ -172,9 +170,55 @@ function saveData() {
     });
 
     localStorage.setItem("scores", JSON.stringify(previusPlayersArray));
-
-    alert(localStorage.getItem("scores"));
   }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  updateTables();
+});
+
+function updateTables() {
+  let scores = JSON.parse(localStorage.getItem("scores")) || [];
+
+  let bestScores = getBestScores(scores);
+  fillTable("best-scores", bestScores);
+
+  let recentGames = scores.slice(-10).reverse();
+  fillTable("recent-games", recentGames);
+}
+
+
+function getBestScores(scores) {
+  let bestScoresMap = {};
+
+  scores.forEach((entry) => {
+    if (!bestScoresMap[entry.name] || entry.count > bestScoresMap[entry.name]) {
+      bestScoresMap[entry.name] = entry.count;
+    }
+  });
+
+  let bestScoresArray = Object.keys(bestScoresMap).map((name) => ({
+    name: name,
+    count: bestScoresMap[name],
+  }));
+
+  return bestScoresArray.sort((a, b) => b.count - a.count).slice(0, 10);
+}
+
+
+function fillTable(tableId, data) {
+  let tableBody = document.getElementById(tableId);
+  tableBody.innerHTML = ""; 
+
+  data.forEach((entry, index) => {
+    let row = document.createElement("tr");
+    row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${entry.name}</td>
+          <td>${entry.count}</td>
+      `;
+    tableBody.appendChild(row);
+  });
 }
 
 function lostGame() {
