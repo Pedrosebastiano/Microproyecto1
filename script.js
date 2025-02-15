@@ -146,6 +146,11 @@ function checkButton(event) {
     isPlaying = false;
     saveData();
     lostGame();
+    Swal.fire({
+      icon: "error",
+      title: "Oops... Perdiste",
+      text: "Presionaste el boton de la sequencia equivocado!",
+    });
     return;
   }
 
