@@ -250,6 +250,7 @@ function updateActualScore() {
   actualScoreElement.textContent = `Puntuación actual⭐: ${score}`;
 }
 
+
 document.querySelectorAll(".color-button").forEach((button) => {
   button.addEventListener("click", checkButton);
 });
