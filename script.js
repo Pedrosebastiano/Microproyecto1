@@ -14,6 +14,7 @@ class Player {
   }
 }
 
+// Función para preparar el juego validando el nombre del jugador y redirigiendo a la página del juego
 function prepareGame() {
   let playerName = document.getElementById("player_name").value.trim();
 
@@ -25,11 +26,13 @@ function prepareGame() {
   }
 }
 
+// Función para redirigir al usuario al menú principal
 function backMainMenu() {
   saveData();
   window.location.href = "index.html";
 }
 
+// Función para reiniciar los valores del juego y comenzar un nuevo juego en un nivel específico
 function restartValues(num) {
   sequence = [];
   userSequence = [];
@@ -40,7 +43,7 @@ function restartValues(num) {
   updateLevel();
 }
 
-//revisado
+// Función para iniciar el juego, inicializar valores y generar una nueva secuencia
 function startGame() {
   isPlaying = true;
   restartValues(1);
@@ -48,6 +51,7 @@ function startGame() {
   playSequence();
 }
 
+// Función para generar un identificador de botón aleatorio
 function getRandomButton() {
   const buttons = [
     "red_button",
@@ -59,6 +63,7 @@ function getRandomButton() {
   return buttons[randomIndex];
 }
 
+// Función para iluminar un botón y reproducir su sonido correspondiente
 function iluminatebutton(buttonId) {
   const button = document.getElementById(buttonId);
   button.classList.add("active", buttonId);
@@ -83,6 +88,7 @@ function iluminatebutton(buttonId) {
   }, 1000);
 }
 
+// Función para manejar los clics de botones, reproducir el sonido correspondiente y verificar la secuencia del usuario
 function clickIluminateButton(buttonId) {
   const button = document.getElementById(buttonId);
   button.classList.add("active-click", buttonId);
@@ -107,6 +113,7 @@ function clickIluminateButton(buttonId) {
   }, 150);
 }
 
+// Función para reproducir la secuencia de botones
 function playSequence() {
   isSequencePlaying = true;
   let delay = 0;
@@ -122,11 +129,13 @@ function playSequence() {
   }, delay);
 }
 
+// Función para generar un nuevo botón y agregarlo a la secuencia
 function newButtonSecuence() {
   const newButton = getRandomButton();
   sequence.push(newButton);
 }
 
+// Función para manejar los clics de botones del usuario y verificar si la secuencia es correcta
 function checkButton(event) {
   if (!isPlaying || isSequencePlaying) return;
   const clickedButton = event.target.id;
@@ -155,6 +164,7 @@ function checkButton(event) {
   }
 }
 
+// Función para guardar los datos del juego
 function saveData() {
   if (level != 0) {
     const previusPlayers = localStorage.getItem("scores");
@@ -177,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
   updateTables();
 });
 
+// Función para actualizar las tablas de puntajes
 function updateTables() {
   let scores = JSON.parse(localStorage.getItem("scores")) || [];
 
@@ -187,7 +198,7 @@ function updateTables() {
   fillTable("recent-games", recentGames);
 }
 
-
+// Función para obtener los mejores puntajes
 function getBestScores(scores) {
   let bestScoresMap = {};
 
@@ -205,7 +216,7 @@ function getBestScores(scores) {
   return bestScoresArray.sort((a, b) => b.count - a.count).slice(0, 10);
 }
 
-
+// Función para llenar una tabla con datos
 function fillTable(tableId, data) {
   let tableBody = document.getElementById(tableId);
   tableBody.innerHTML = ""; 
@@ -221,16 +232,19 @@ function fillTable(tableId, data) {
   });
 }
 
+// Función para mostrar la pantalla de derrota del juego
 function lostGame() {
   const actualScoreElement = document.getElementById("actual-score");
   actualScoreElement.textContent = `Perdiste! \n Puntaje🚩: ${level - 1}`;
 }
 
+// Función para actualizar el nivel del juego
 function updateLevel() {
   const levelElement = document.getElementById("level");
   levelElement.textContent = `${level}`;
 }
 
+// Función para actualizar la puntuación actual del juego
 function updateActualScore() {
   const actualScoreElement = document.getElementById("actual-score");
   actualScoreElement.textContent = `Puntuación actual⭐: ${score}`;
@@ -246,6 +260,7 @@ document.addEventListener("DOMContentLoaded", function () {
   playerNameElement.textContent = `Jugador: ${playerName}`;
 });
 
+// Reproducir sonidos de botones
 function playRedSound() {
   const redSound = new Audio("./Recursos/botonrojo.mp3");
   redSound.play();
