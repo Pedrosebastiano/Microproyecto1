@@ -19,3 +19,5 @@ Si el jugador presiona un botón incorrecto, el juego termina y la puntuación s
 Objetivo final:
 
 Memorizar la mayor cantidad de colores posibles para alcanzar la puntuación más alta antes de cometer un error.
+
+Proyecto 1 Sistemas de Información. Creado por Gabriele Colarusso y Pedro Sebastiano
