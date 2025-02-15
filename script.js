@@ -157,15 +157,19 @@ function checkButton(event) {
     isPlaying = false;
     saveData();
     lostGame();
-    Swal.fire({
-      icon: "error",
-      title: "Oops... Perdiste",
-      text: "Presionaste el boton de la sequencia equivocado!",
-      color: "#fff",
-      confirmButtonColor: "#ff5757",
-      confirmButtonText: "Reiniciar Juego",
-      background: "#3d3a3a",
-    });
+    playLostSound();
+    setTimeout(() => {
+      Swal.fire({
+        icon: "error",
+        title: "Oops... Perdiste",
+        text: "Presionaste el botón de la secuencia equivocado!",
+        color: "#fff",
+        confirmButtonColor: "#ff5757",
+        confirmButtonText: "Reiniciar Juego",
+        background: "#3d3a3a",
+      });
+    }, 1000); 
+
     return;
   }
 
@@ -299,4 +303,9 @@ function playBlueSound() {
 function playYellowSound() {
   const yellowSound = new Audio("./Recursos/botonamarillo.mp3");
   yellowSound.play();
+}
+
+function playLostSound() {
+  const lostSound = new Audio("./Recursos/perder-incorrecto-no-valido.mp3");
+  lostSound.play();
 }
