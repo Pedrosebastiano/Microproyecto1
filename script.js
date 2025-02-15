@@ -31,7 +31,7 @@ function prepareGame() {
 
 // Función para redirigir al usuario al menú principal
 function backMainMenu() {
-  saveData();
+  if(isPlaying) saveData();
   window.location.href = "index.html";
 }
 
@@ -147,14 +147,11 @@ function newButtonSecuence() {
 function checkButton(event) {
   if (!isPlaying || isSequencePlaying) return;
   const clickedButton = event.target.id;
-  clickIluminateButton(clickedButton);
   userSequence.push(clickedButton);
 
   if (clickedButton !== sequence[userSequence.length - 1]) {
     isPlaying = false;
     saveData();
-    lostGame();
-    playLostSound();
     setTimeout(() => {
       Swal.fire({
         icon: "error",
@@ -165,11 +162,13 @@ function checkButton(event) {
         confirmButtonText: "Reiniciar Juego",
         background: "#3d3a3a",
       });
-    }, 1000); 
-
+    }, 300);
+    lostGame();
+    playLostSound();
     return;
   }
 
+  clickIluminateButton(clickedButton);
   score++;
   updateActualScore();
 
@@ -282,22 +281,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Reproducir sonidos de botones
 function playRedSound() {
+  if (!isPlaying) return;
   const redSound = new Audio("./Recursos/botonrojo.mp3");
   redSound.play();
 }
 
 function playGreenSound() {
+  if (!isPlaying) return;
   const greenSound = new Audio("./Recursos/botonverde.mp3");
   greenSound.play();
 }
 function playBlueSound() {
+  if (!isPlaying) return;
   const blueSound = new Audio("./Recursos/botonazul.mp3");
   blueSound.play();
 }
 
 function playYellowSound() {
-  const yellowSound = new Audio("./Recursos/botonamarillo.mp3");
-  yellowSound.play();
+  if (!isPlaying) return;
+    const yellowSound = new Audio("./Recursos/botonamarillo.mp3");
+    yellowSound.play();
 }
 
 function playLostSound() {
