@@ -22,7 +22,18 @@ function prepareGame() {
     window.location.href = "game.html";
     localStorage.setItem("playerName", playerName);
   } else {
-    alert("Por favor, ingrese un nombre");
+    if (playerName.length === 0) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops... Error!",
+      text: "Ingresa el nombre del jugador!",
+      color: "#fff",
+      confirmButtonColor: "#ff5757",
+      confirmButtonText: "Ingresar Nombre",
+      background: "#3d3a3a",
+    });
+    return;
+  }
   }
 }
 
@@ -150,6 +161,10 @@ function checkButton(event) {
       icon: "error",
       title: "Oops... Perdiste",
       text: "Presionaste el boton de la sequencia equivocado!",
+      color: "#fff",
+      confirmButtonColor: "#ff5757",
+      confirmButtonText: "Reiniciar Juego",
+      background: "#3d3a3a",
     });
     return;
   }
