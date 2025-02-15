@@ -6,14 +6,6 @@ let score = 0;
 let level = 0;
 let isSequencePlaying = false;
 
-//ver si usar
-class Player {
-  constructor(name) {
-    this.name = name;
-    this.score = 0;
-  }
-}
-
 // Función para preparar el juego validando el nombre del jugador y redirigiendo a la página del juego
 function prepareGame() {
   let playerName = document.getElementById("player_name").value.trim();
@@ -23,17 +15,17 @@ function prepareGame() {
     localStorage.setItem("playerName", playerName);
   } else {
     if (playerName.length === 0) {
-    Swal.fire({
-      icon: "error",
-      title: "Oops... Error!",
-      text: "Ingresa el nombre del jugador!",
-      color: "#fff",
-      confirmButtonColor: "#ff5757",
-      confirmButtonText: "Ingresar Nombre",
-      background: "#3d3a3a",
-    });
-    return;
-  }
+      Swal.fire({
+        icon: "error",
+        title: "Oops... Error!",
+        text: "Ingresa el nombre del jugador!",
+        color: "#fff",
+        confirmButtonColor: "#ff5757",
+        confirmButtonText: "Ingresar Nombre",
+        background: "#3d3a3a",
+      });
+      return;
+    }
   }
 }
 
@@ -50,6 +42,9 @@ function restartValues(num) {
   currentStep = 0;
   score = 0;
   level = num;
+  if (num === 0) {
+    isPlaying = false;
+  }
   updateActualScore();
   updateLevel();
 }
@@ -76,27 +71,29 @@ function getRandomButton() {
 
 // Función para iluminar un botón y reproducir su sonido correspondiente
 function iluminatebutton(buttonId) {
-  const button = document.getElementById(buttonId);
-  button.classList.add("active", buttonId);
+  if (isPlaying) {
+    const button = document.getElementById(buttonId);
+    button.classList.add("active", buttonId);
 
-  switch (buttonId) {
-    case "red_button":
-      playRedSound();
-      break;
-    case "green_button":
-      playGreenSound();
-      break;
-    case "blue_button":
-      playBlueSound();
-      break;
-    case "yellow_button":
-      playYellowSound();
-      break;
+    switch (buttonId) {
+      case "red_button":
+        playRedSound();
+        break;
+      case "green_button":
+        playGreenSound();
+        break;
+      case "blue_button":
+        playBlueSound();
+        break;
+      case "yellow_button":
+        playYellowSound();
+        break;
+    }
+
+    setTimeout(() => {
+      button.classList.remove("active", buttonId);
+    }, 1000);
   }
-
-  setTimeout(() => {
-    button.classList.remove("active", buttonId);
-  }, 1000);
 }
 
 // Función para manejar los clics de botones, reproducir el sonido correspondiente y verificar la secuencia del usuario
@@ -173,7 +170,6 @@ function checkButton(event) {
   updateActualScore();
 
   if (userSequence.length === sequence.length) {
-    console.log("Correcto");
     userSequence = [];
     level++;
     updateLevel();
@@ -202,10 +198,6 @@ function saveData() {
     localStorage.setItem("scores", JSON.stringify(previusPlayersArray));
   }
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  updateTables();
-});
 
 // Función para actualizar las tablas de puntajes
 function updateTables() {
@@ -239,7 +231,7 @@ function getBestScores(scores) {
 // Función para llenar una tabla con datos
 function fillTable(tableId, data) {
   let tableBody = document.getElementById(tableId);
-  tableBody.innerHTML = ""; 
+  tableBody.innerHTML = "";
 
   data.forEach((entry, index) => {
     let row = document.createElement("tr");
@@ -255,7 +247,7 @@ function fillTable(tableId, data) {
 // Función para mostrar la pantalla de derrota del juego
 function lostGame() {
   const actualScoreElement = document.getElementById("actual-score");
-  actualScoreElement.textContent = `Perdiste! \n Puntaje🚩: ${level - 1}`;
+  actualScoreElement.textContent = `Perdiste! Puntaje🚩: ${level - 1}`;
 }
 
 // Función para actualizar el nivel del juego
@@ -270,6 +262,9 @@ function updateActualScore() {
   actualScoreElement.textContent = `Puntuación actual⭐: ${score}`;
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  updateTables();
+});
 
 document.querySelectorAll(".color-button").forEach((button) => {
   button.addEventListener("click", checkButton);
